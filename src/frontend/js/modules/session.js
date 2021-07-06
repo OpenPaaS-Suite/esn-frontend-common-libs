@@ -121,6 +121,12 @@
             });
         })
         .catch(error => {
+          if (error.code && error.code === 401) {
+            $log.error('failed to fetch the current user', error);
+
+            return esnAuth.signin();
+          }
+
           $scope.$apply(() => {
             $scope.session.error = error.data;
             $scope.session.template = esnTemplate.templates.error;
