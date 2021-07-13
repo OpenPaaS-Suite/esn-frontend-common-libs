@@ -426,13 +426,12 @@
         }
       };
     })
-    .directive('avatarPicker', function(selectionService, $alert, avatarDefaultUrl) {
+    .directive('avatarPicker', function(selectionService, $alert, avatarDefaultUrl, httpConfigurer) {
       function link($scope, element, attrs) {
         $scope.image = {
           selected: false
         };
-        $scope.avatarPlaceholder = attrs.avatarPlaceholder ? attrs.avatarPlaceholder : avatarDefaultUrl.get();
-
+        $scope.avatarPlaceholder = attrs.avatarPlaceholder ? httpConfigurer.getUrl(attrs.avatarPlaceholder) : avatarDefaultUrl.get();
         var alertInstance = null;
 
         function destroyAlertInstance() {
